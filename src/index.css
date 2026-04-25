@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-ferrari-red: #DA291C;
+  --color-ferrari-red-dark: #B01E0A;
+  --color-ferrari-red-deep: #9D2211;
+  --color-racing-yellow: #FFF200;
+  --color-modena-yellow: #F6E500;
+  --color-absolute-black: #000000;
+  --color-dark-surface: #303030;
+  --color-light-gray: #D2D2D2;
+  --color-near-black: #181818;
+  --color-dark-gray: #666666;
+  --color-mid-gray: #8F8F8F;
+  --color-silver-gray: #969696;
+  --color-link-hover: #3860BE;
+  --radius-ferrari: 2px;
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.09 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.09 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.09 0 0);
+  --primary: oklch(0.578 0.177 30.252);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.09 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.578 0.177 30.252);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.125rem;
+}
+
+.dark {
+  --background: oklch(0.03 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.922 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-ferrari);
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  html {
+    font-family: system-ui, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+  
+  .label-uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--muted-foreground);
+  }
+  
+  .card-editorial {
+    background-color: var(--card);
+    border-radius: 0;
+    border: none;
+  }
+  
+  .section-cinematic {
+    background-color: var(--color-absolute-black);
+    color: white;
+  }
+  
+  button, .btn {
+    border-radius: var(--radius-ferrari);
+  }
+  
+  input, textarea, select {
+    border-radius: var(--radius-ferrari);
+  }
+}
+
+/* Print styles - Landscape PDF */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 3mm;
+  }
+  
+  * {
+    visibility: visible !important;
+    box-sizing: border-box !important;
+  }
+  
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Hide UI elements */
+  header, footer, nav, .no-print, button, .hidden-print,
+  [class*="button"], [class*="btn"], input, select, textarea {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Show only print area */
+  #timetable-print {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    max-width: 297mm !important;
+    height: auto !important;
+    border: none !important;
+    padding: 5mm !important;
+    margin: 0 !important;
+    background: white !important;
+    visibility: visible !important;
+    font-size: 9px !important;
+  }
+  
+  /* Ensure all children are visible */
+  #timetable-print > * {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Table styles - full width */
+  #timetable-print table {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse;
+    font-size: 9px !important;
+  }
+  
+  #timetable-print th, 
+  #timetable-print td {
+    border: 1px solid #000 !important;
+    padding: 3px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  #timetable-print th {
+    font-weight: bold;
+  }
+}
